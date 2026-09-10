@@ -1,0 +1,16 @@
+{
+  "category": "misc", 
+  "type": "minecraft:crafting_shapeless", 
+  "result": {
+    "count": 1, 
+    "id": "create:shaft"
+  }, 
+  "ingredients": [
+    {
+      "tag": "more_transmission:shafts"
+    }, 
+    {
+      "item": "create:andesite_alloy"
+    }
+  ]
+}

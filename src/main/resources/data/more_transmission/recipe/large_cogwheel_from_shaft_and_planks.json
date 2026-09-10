@@ -1,0 +1,19 @@
+{
+  "category": "misc", 
+  "type": "minecraft:crafting_shapeless", 
+  "result": {
+    "count": 1, 
+    "id": "create:large_cogwheel"
+  }, 
+  "ingredients": [
+    {
+      "tag": "more_transmission:shafts"
+    }, 
+    {
+      "tag": "minecraft:planks"
+    }, 
+    {
+      "tag": "minecraft:planks"
+    }
+  ]
+}
