@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_moss_block_shaft": {
+      "conditions": {
+        "items": [
+          {
+            "items": "more_transmission:moss_block_shaft"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "more_transmission:moss_block_from_9_moss_block_shaft"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_moss_block_shaft"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "more_transmission:moss_block_from_9_moss_block_shaft"
+    ]
+  }
+}

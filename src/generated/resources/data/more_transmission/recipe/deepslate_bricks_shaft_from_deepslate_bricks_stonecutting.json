@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "minecraft:deepslate_bricks"
+  },
+  "result": {
+    "count": 8,
+    "id": "more_transmission:deepslate_bricks_shaft"
+  }
+}

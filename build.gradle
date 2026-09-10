@@ -22,7 +22,9 @@ repositories {
 }
 
 base {
-    archivesName = mod_id
+    // jar 文件名带上目标 MC 版本（如 more_transmission-neo_1.21.1-1.0.0.jar）；
+    // 注意：mods.toml 里的 version 仍用合法的 mod_version，不能混入这种后缀。
+    archivesName = "${mod_id}-neo_${minecraft_version}"
 }
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)

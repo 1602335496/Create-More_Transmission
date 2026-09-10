@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "more_transmission:spruce_log_shaft"
+    },
+    {
+      "item": "more_transmission:spruce_log_shaft"
+    },
+    {
+      "item": "more_transmission:spruce_log_shaft"
+    },
+    {
+      "item": "more_transmission:spruce_log_shaft"
+    },
+    {
+      "item": "more_transmission:spruce_log_shaft"
+    },
+    {
+      "item": "more_transmission:spruce_log_shaft"
+    },
+    {
+      "item": "more_transmission:spruce_log_shaft"
+    },
+    {
+      "item": "more_transmission:spruce_log_shaft"
+    },
+    {
+      "item": "more_transmission:spruce_log_shaft"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:spruce_log"
+  }
+}

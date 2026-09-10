@@ -1,0 +1,17 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "more_transmission:block/warped_planks_shaft",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "more_transmission:block/warped_planks_shaft"
+    },
+    "axis=z": {
+      "model": "more_transmission:block/warped_planks_shaft",
+      "x": 90,
+      "y": 180
+    }
+  }
+}

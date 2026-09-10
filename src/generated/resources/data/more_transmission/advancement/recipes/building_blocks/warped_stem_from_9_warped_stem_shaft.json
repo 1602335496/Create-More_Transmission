@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "more_transmission:warped_stem_from_9_warped_stem_shaft"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_warped_stem_shaft": {
+      "conditions": {
+        "items": [
+          {
+            "items": "more_transmission:warped_stem_shaft"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_warped_stem_shaft"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "more_transmission:warped_stem_from_9_warped_stem_shaft"
+    ]
+  }
+}

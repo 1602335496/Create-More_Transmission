@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_hay_block_shaft": {
+      "conditions": {
+        "items": [
+          {
+            "items": "more_transmission:hay_block_shaft"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "more_transmission:hay_block_from_9_hay_block_shaft"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_hay_block_shaft"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "more_transmission:hay_block_from_9_hay_block_shaft"
+    ]
+  }
+}

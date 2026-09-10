@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "more_transmission:magma_block_shaft"
+    },
+    {
+      "item": "more_transmission:magma_block_shaft"
+    },
+    {
+      "item": "more_transmission:magma_block_shaft"
+    },
+    {
+      "item": "more_transmission:magma_block_shaft"
+    },
+    {
+      "item": "more_transmission:magma_block_shaft"
+    },
+    {
+      "item": "more_transmission:magma_block_shaft"
+    },
+    {
+      "item": "more_transmission:magma_block_shaft"
+    },
+    {
+      "item": "more_transmission:magma_block_shaft"
+    },
+    {
+      "item": "more_transmission:magma_block_shaft"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:magma_block"
+  }
+}

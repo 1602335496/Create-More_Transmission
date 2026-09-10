@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "minecraft:cyan_stained_glass"
+  },
+  "result": {
+    "count": 8,
+    "id": "more_transmission:cyan_stained_glass_shaft"
+  }
+}

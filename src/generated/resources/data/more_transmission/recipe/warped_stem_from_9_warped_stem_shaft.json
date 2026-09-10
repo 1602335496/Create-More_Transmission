@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "more_transmission:warped_stem_shaft"
+    },
+    {
+      "item": "more_transmission:warped_stem_shaft"
+    },
+    {
+      "item": "more_transmission:warped_stem_shaft"
+    },
+    {
+      "item": "more_transmission:warped_stem_shaft"
+    },
+    {
+      "item": "more_transmission:warped_stem_shaft"
+    },
+    {
+      "item": "more_transmission:warped_stem_shaft"
+    },
+    {
+      "item": "more_transmission:warped_stem_shaft"
+    },
+    {
+      "item": "more_transmission:warped_stem_shaft"
+    },
+    {
+      "item": "more_transmission:warped_stem_shaft"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:warped_stem"
+  }
+}

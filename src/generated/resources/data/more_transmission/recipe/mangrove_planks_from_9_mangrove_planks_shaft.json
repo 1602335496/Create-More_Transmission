@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "more_transmission:mangrove_planks_shaft"
+    },
+    {
+      "item": "more_transmission:mangrove_planks_shaft"
+    },
+    {
+      "item": "more_transmission:mangrove_planks_shaft"
+    },
+    {
+      "item": "more_transmission:mangrove_planks_shaft"
+    },
+    {
+      "item": "more_transmission:mangrove_planks_shaft"
+    },
+    {
+      "item": "more_transmission:mangrove_planks_shaft"
+    },
+    {
+      "item": "more_transmission:mangrove_planks_shaft"
+    },
+    {
+      "item": "more_transmission:mangrove_planks_shaft"
+    },
+    {
+      "item": "more_transmission:mangrove_planks_shaft"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:mangrove_planks"
+  }
+}

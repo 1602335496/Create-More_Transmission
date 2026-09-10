@@ -1,0 +1,17 @@
+{
+  "variants": {
+    "axis=x": {
+      "model": "more_transmission:block/dripstone_block_shaft",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y": {
+      "model": "more_transmission:block/dripstone_block_shaft"
+    },
+    "axis=z": {
+      "model": "more_transmission:block/dripstone_block_shaft",
+      "x": 90,
+      "y": 180
+    }
+  }
+}

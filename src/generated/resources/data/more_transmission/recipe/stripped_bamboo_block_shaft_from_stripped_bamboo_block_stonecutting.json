@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "minecraft:stripped_bamboo_block"
+  },
+  "result": {
+    "count": 8,
+    "id": "more_transmission:stripped_bamboo_block_shaft"
+  }
+}

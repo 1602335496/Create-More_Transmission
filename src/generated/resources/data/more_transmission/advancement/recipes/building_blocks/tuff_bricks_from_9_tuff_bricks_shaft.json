@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "more_transmission:tuff_bricks_from_9_tuff_bricks_shaft"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_tuff_bricks_shaft": {
+      "conditions": {
+        "items": [
+          {
+            "items": "more_transmission:tuff_bricks_shaft"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_tuff_bricks_shaft"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "more_transmission:tuff_bricks_from_9_tuff_bricks_shaft"
+    ]
+  }
+}

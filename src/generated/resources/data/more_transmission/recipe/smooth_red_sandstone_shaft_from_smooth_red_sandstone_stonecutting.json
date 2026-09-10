@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "minecraft:smooth_red_sandstone"
+  },
+  "result": {
+    "count": 8,
+    "id": "more_transmission:smooth_red_sandstone_shaft"
+  }
+}

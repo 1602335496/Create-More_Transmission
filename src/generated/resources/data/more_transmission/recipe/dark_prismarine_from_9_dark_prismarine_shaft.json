@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "more_transmission:dark_prismarine_shaft"
+    },
+    {
+      "item": "more_transmission:dark_prismarine_shaft"
+    },
+    {
+      "item": "more_transmission:dark_prismarine_shaft"
+    },
+    {
+      "item": "more_transmission:dark_prismarine_shaft"
+    },
+    {
+      "item": "more_transmission:dark_prismarine_shaft"
+    },
+    {
+      "item": "more_transmission:dark_prismarine_shaft"
+    },
+    {
+      "item": "more_transmission:dark_prismarine_shaft"
+    },
+    {
+      "item": "more_transmission:dark_prismarine_shaft"
+    },
+    {
+      "item": "more_transmission:dark_prismarine_shaft"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:dark_prismarine"
+  }
+}

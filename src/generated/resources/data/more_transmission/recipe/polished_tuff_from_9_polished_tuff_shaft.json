@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "more_transmission:polished_tuff_shaft"
+    },
+    {
+      "item": "more_transmission:polished_tuff_shaft"
+    },
+    {
+      "item": "more_transmission:polished_tuff_shaft"
+    },
+    {
+      "item": "more_transmission:polished_tuff_shaft"
+    },
+    {
+      "item": "more_transmission:polished_tuff_shaft"
+    },
+    {
+      "item": "more_transmission:polished_tuff_shaft"
+    },
+    {
+      "item": "more_transmission:polished_tuff_shaft"
+    },
+    {
+      "item": "more_transmission:polished_tuff_shaft"
+    },
+    {
+      "item": "more_transmission:polished_tuff_shaft"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:polished_tuff"
+  }
+}

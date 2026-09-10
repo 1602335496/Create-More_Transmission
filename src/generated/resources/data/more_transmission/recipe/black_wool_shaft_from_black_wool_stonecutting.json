@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "minecraft:black_wool"
+  },
+  "result": {
+    "count": 8,
+    "id": "more_transmission:black_wool_shaft"
+  }
+}

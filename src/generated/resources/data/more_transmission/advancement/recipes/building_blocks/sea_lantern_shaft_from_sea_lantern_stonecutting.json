@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_sea_lantern": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:sea_lantern"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "more_transmission:sea_lantern_shaft_from_sea_lantern_stonecutting"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_sea_lantern"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "more_transmission:sea_lantern_shaft_from_sea_lantern_stonecutting"
+    ]
+  }
+}

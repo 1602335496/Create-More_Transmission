@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "more_transmission:sand_shaft"
+    },
+    {
+      "item": "more_transmission:sand_shaft"
+    },
+    {
+      "item": "more_transmission:sand_shaft"
+    },
+    {
+      "item": "more_transmission:sand_shaft"
+    },
+    {
+      "item": "more_transmission:sand_shaft"
+    },
+    {
+      "item": "more_transmission:sand_shaft"
+    },
+    {
+      "item": "more_transmission:sand_shaft"
+    },
+    {
+      "item": "more_transmission:sand_shaft"
+    },
+    {
+      "item": "more_transmission:sand_shaft"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:sand"
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "more_transmission:deepslate_bricks_shaft"
+    },
+    {
+      "item": "more_transmission:deepslate_bricks_shaft"
+    },
+    {
+      "item": "more_transmission:deepslate_bricks_shaft"
+    },
+    {
+      "item": "more_transmission:deepslate_bricks_shaft"
+    },
+    {
+      "item": "more_transmission:deepslate_bricks_shaft"
+    },
+    {
+      "item": "more_transmission:deepslate_bricks_shaft"
+    },
+    {
+      "item": "more_transmission:deepslate_bricks_shaft"
+    },
+    {
+      "item": "more_transmission:deepslate_bricks_shaft"
+    },
+    {
+      "item": "more_transmission:deepslate_bricks_shaft"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:deepslate_bricks"
+  }
+}

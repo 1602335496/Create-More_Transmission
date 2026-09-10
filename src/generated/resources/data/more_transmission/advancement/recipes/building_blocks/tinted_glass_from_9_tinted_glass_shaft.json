@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "more_transmission:tinted_glass_from_9_tinted_glass_shaft"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    },
+    "has_tinted_glass_shaft": {
+      "conditions": {
+        "items": [
+          {
+            "items": "more_transmission:tinted_glass_shaft"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_tinted_glass_shaft"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "more_transmission:tinted_glass_from_9_tinted_glass_shaft"
+    ]
+  }
+}
