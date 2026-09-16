@@ -32,6 +32,8 @@
     "more_transmission:crimson_planks_shaft",
     "more_transmission:warped_stem_shaft",
     "more_transmission:stripped_warped_stem_shaft",
-    "more_transmission:warped_planks_shaft"
+    "more_transmission:warped_planks_shaft",
+    "more_transmission:andesite_encased_shaft",
+    "more_transmission:brass_encased_shaft"
   ]
 }

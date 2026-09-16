@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "minecraft:weathered_copper"
+  },
+  "result": {
+    "count": 8,
+    "id": "more_transmission:weathered_copper_shaft"
+  }
+}

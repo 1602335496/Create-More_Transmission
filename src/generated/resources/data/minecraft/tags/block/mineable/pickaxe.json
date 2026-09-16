@@ -54,6 +54,20 @@
     "more_transmission:amethyst_block_shaft",
     "more_transmission:copper_block_shaft",
     "more_transmission:cut_copper_shaft",
+    "more_transmission:exposed_copper_shaft",
+    "more_transmission:weathered_copper_shaft",
+    "more_transmission:oxidized_copper_shaft",
+    "more_transmission:exposed_cut_copper_shaft",
+    "more_transmission:weathered_cut_copper_shaft",
+    "more_transmission:oxidized_cut_copper_shaft",
+    "more_transmission:waxed_copper_block_shaft",
+    "more_transmission:waxed_exposed_copper_shaft",
+    "more_transmission:waxed_weathered_copper_shaft",
+    "more_transmission:waxed_oxidized_copper_shaft",
+    "more_transmission:waxed_cut_copper_shaft",
+    "more_transmission:waxed_exposed_cut_copper_shaft",
+    "more_transmission:waxed_weathered_cut_copper_shaft",
+    "more_transmission:waxed_oxidized_cut_copper_shaft",
     "more_transmission:ice_shaft",
     "more_transmission:moss_block_shaft",
     "more_transmission:calcite_shaft",
@@ -68,6 +82,8 @@
     "more_transmission:slime_block_shaft",
     "more_transmission:honey_block_shaft",
     "more_transmission:sculk_shaft",
-    "more_transmission:bedrock_shaft"
+    "more_transmission:bedrock_shaft",
+    "more_transmission:andesite_encased_shaft",
+    "more_transmission:brass_encased_shaft"
   ]
 }

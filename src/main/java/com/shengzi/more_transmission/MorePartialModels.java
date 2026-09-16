@@ -31,8 +31,6 @@ public class MorePartialModels {
 
     public static final PartialModel BIRCH_PLANKS_SHAFT = PartialModel.of(More_transmission.modLoc("block/birch_planks_shaft"));
 
-    /** 空方法，仅用于强制触发本类的静态初始化。 */
-
     public static final PartialModel JUNGLE_LOG_SHAFT = PartialModel.of(More_transmission.modLoc("block/jungle_log_shaft"));
 
     public static final PartialModel STRIPPED_JUNGLE_LOG_SHAFT = PartialModel.of(More_transmission.modLoc("block/stripped_jungle_log_shaft"));
@@ -187,6 +185,35 @@ public class MorePartialModels {
 
     public static final PartialModel CUT_COPPER_SHAFT = PartialModel.of(More_transmission.modLoc("block/cut_copper_shaft"));
 
+    // 铜的氧化 / 涂蜡变种（14 根，顺序与 ModBlocks / Config.IDS 一致）
+    public static final PartialModel EXPOSED_COPPER_SHAFT = PartialModel.of(More_transmission.modLoc("block/exposed_copper_shaft"));
+
+    public static final PartialModel WEATHERED_COPPER_SHAFT = PartialModel.of(More_transmission.modLoc("block/weathered_copper_shaft"));
+
+    public static final PartialModel OXIDIZED_COPPER_SHAFT = PartialModel.of(More_transmission.modLoc("block/oxidized_copper_shaft"));
+
+    public static final PartialModel EXPOSED_CUT_COPPER_SHAFT = PartialModel.of(More_transmission.modLoc("block/exposed_cut_copper_shaft"));
+
+    public static final PartialModel WEATHERED_CUT_COPPER_SHAFT = PartialModel.of(More_transmission.modLoc("block/weathered_cut_copper_shaft"));
+
+    public static final PartialModel OXIDIZED_CUT_COPPER_SHAFT = PartialModel.of(More_transmission.modLoc("block/oxidized_cut_copper_shaft"));
+
+    public static final PartialModel WAXED_COPPER_BLOCK_SHAFT = PartialModel.of(More_transmission.modLoc("block/waxed_copper_block_shaft"));
+
+    public static final PartialModel WAXED_EXPOSED_COPPER_SHAFT = PartialModel.of(More_transmission.modLoc("block/waxed_exposed_copper_shaft"));
+
+    public static final PartialModel WAXED_WEATHERED_COPPER_SHAFT = PartialModel.of(More_transmission.modLoc("block/waxed_weathered_copper_shaft"));
+
+    public static final PartialModel WAXED_OXIDIZED_COPPER_SHAFT = PartialModel.of(More_transmission.modLoc("block/waxed_oxidized_copper_shaft"));
+
+    public static final PartialModel WAXED_CUT_COPPER_SHAFT = PartialModel.of(More_transmission.modLoc("block/waxed_cut_copper_shaft"));
+
+    public static final PartialModel WAXED_EXPOSED_CUT_COPPER_SHAFT = PartialModel.of(More_transmission.modLoc("block/waxed_exposed_cut_copper_shaft"));
+
+    public static final PartialModel WAXED_WEATHERED_CUT_COPPER_SHAFT = PartialModel.of(More_transmission.modLoc("block/waxed_weathered_cut_copper_shaft"));
+
+    public static final PartialModel WAXED_OXIDIZED_CUT_COPPER_SHAFT = PartialModel.of(More_transmission.modLoc("block/waxed_oxidized_cut_copper_shaft"));
+
     public static final PartialModel WHITE_WOOL_SHAFT = PartialModel.of(More_transmission.modLoc("block/white_wool_shaft"));
 
     public static final PartialModel LIGHT_GRAY_WOOL_SHAFT = PartialModel.of(More_transmission.modLoc("block/light_gray_wool_shaft"));
@@ -299,6 +326,10 @@ public class MorePartialModels {
 
     public static final PartialModel TNT_SHAFT = PartialModel.of(More_transmission.modLoc("block/tnt_shaft"));
 
+    /**
+     * 空方法，仅用于强制触发本类的静态初始化——客户端 setup 时调用它，
+     * 保证所有 {@code PartialModel.of(...)} 都早于模型烘焙执行。
+     */
     public static void init() {
     }
 }

@@ -1,10 +1,18 @@
 package com.shengzi.more_transmission;
 
+import java.util.function.Supplier;
+
 import com.shengzi.more_transmission.custom_block.RedstoneShaftBlock;
 import com.shengzi.more_transmission.custom_block.TntShaftBlock;
+import com.simibubi.create.AllBlocks;
+import com.simibubi.create.AllSpriteShifts;
+import com.simibubi.create.content.decoration.encasing.EncasedCTBehaviour;
+import com.simibubi.create.content.decoration.encasing.EncasingRegistry;
 import com.simibubi.create.content.kinetics.simpleRelays.BracketedKineticBlockModel;
+import com.simibubi.create.foundation.block.connected.CTSpriteShiftEntry;
 import com.simibubi.create.foundation.data.BlockStateGen;
 import com.simibubi.create.foundation.data.CreateRegistrate;
+import com.simibubi.create.foundation.data.SharedProperties;
 import com.simibubi.create.foundation.data.TagGen;
 import com.tterrag.registrate.builders.BlockBuilder;
 import com.tterrag.registrate.providers.RegistrateRecipeProvider;
@@ -12,6 +20,7 @@ import com.tterrag.registrate.util.DataIngredient;
 import com.tterrag.registrate.util.entry.BlockEntry;
 import com.tterrag.registrate.util.nullness.NonNullFunction;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.ShapelessRecipeBuilder;
@@ -22,6 +31,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
+import net.neoforged.neoforge.client.model.generators.ModelFile;
 
 import static com.shengzi.more_transmission.More_transmission.REGISTRATE;
 
@@ -412,6 +422,40 @@ public class ModBlocks {
 
     public static final BlockEntry<MoreShaftBlock> CUT_COPPER_SHAFT = shaft("cut_copper_shaft", "Cut Copper Shaft");
 
+    // ---- 铜的氧化 / 涂蜡变种（14 根），默认最大转速与铜块传动杆一致 = 160 ----
+    // 命名沿用「注册名 = 原版方块 id + _shaft」，所以下面 shaft() 助手能自动找到对应材质方块，
+    // 物性、挖掘标签、三条配方都照常生成。
+    // 注意涂蜡变种（waxed_*）在原版里没有自己的贴图——blockstates/waxed_copper_block 直接指向未涂蜡模型，
+    // 所以它们的模型 JSON 引用的是未涂蜡那张贴图（见 models/block/waxed_*_shaft.json）。
+    // 顺序与 Config.IDS / MorePartialModels / MoreShaftVisual.PARTIALS / ModBlockEntities 保持一致。
+    public static final BlockEntry<MoreShaftBlock> EXPOSED_COPPER_SHAFT = shaft("exposed_copper_shaft", "Exposed Copper Shaft");
+
+    public static final BlockEntry<MoreShaftBlock> WEATHERED_COPPER_SHAFT = shaft("weathered_copper_shaft", "Weathered Copper Shaft");
+
+    public static final BlockEntry<MoreShaftBlock> OXIDIZED_COPPER_SHAFT = shaft("oxidized_copper_shaft", "Oxidized Copper Shaft");
+
+    public static final BlockEntry<MoreShaftBlock> EXPOSED_CUT_COPPER_SHAFT = shaft("exposed_cut_copper_shaft", "Exposed Cut Copper Shaft");
+
+    public static final BlockEntry<MoreShaftBlock> WEATHERED_CUT_COPPER_SHAFT = shaft("weathered_cut_copper_shaft", "Weathered Cut Copper Shaft");
+
+    public static final BlockEntry<MoreShaftBlock> OXIDIZED_CUT_COPPER_SHAFT = shaft("oxidized_cut_copper_shaft", "Oxidized Cut Copper Shaft");
+
+    public static final BlockEntry<MoreShaftBlock> WAXED_COPPER_BLOCK_SHAFT = shaft("waxed_copper_block_shaft", "Waxed Copper Shaft");
+
+    public static final BlockEntry<MoreShaftBlock> WAXED_EXPOSED_COPPER_SHAFT = shaft("waxed_exposed_copper_shaft", "Waxed Exposed Copper Shaft");
+
+    public static final BlockEntry<MoreShaftBlock> WAXED_WEATHERED_COPPER_SHAFT = shaft("waxed_weathered_copper_shaft", "Waxed Weathered Copper Shaft");
+
+    public static final BlockEntry<MoreShaftBlock> WAXED_OXIDIZED_COPPER_SHAFT = shaft("waxed_oxidized_copper_shaft", "Waxed Oxidized Copper Shaft");
+
+    public static final BlockEntry<MoreShaftBlock> WAXED_CUT_COPPER_SHAFT = shaft("waxed_cut_copper_shaft", "Waxed Cut Copper Shaft");
+
+    public static final BlockEntry<MoreShaftBlock> WAXED_EXPOSED_CUT_COPPER_SHAFT = shaft("waxed_exposed_cut_copper_shaft", "Waxed Exposed Cut Copper Shaft");
+
+    public static final BlockEntry<MoreShaftBlock> WAXED_WEATHERED_CUT_COPPER_SHAFT = shaft("waxed_weathered_cut_copper_shaft", "Waxed Weathered Cut Copper Shaft");
+
+    public static final BlockEntry<MoreShaftBlock> WAXED_OXIDIZED_CUT_COPPER_SHAFT = shaft("waxed_oxidized_cut_copper_shaft", "Waxed Oxidized Cut Copper Shaft");
+
     public static final BlockEntry<MoreShaftBlock> WHITE_WOOL_SHAFT = shaft("white_wool_shaft", "White Wool Shaft");
 
     public static final BlockEntry<MoreShaftBlock> LIGHT_GRAY_WOOL_SHAFT = shaft("light_gray_wool_shaft", "Light Gray Wool Shaft");
@@ -554,6 +598,85 @@ public class ModBlocks {
             .build()
 
             .register();
+
+    // ---- 封套传动杆：把上面任意一种材质轴用 Andesite / Brass Casing 包起来 ----
+    //
+    // 原版 Create 的 create:andesite_encased_shaft 内部固定包着 create:shaft，材质没得选；
+    // 这里做的是「保留材质」的版本：里面包的是哪一种 MoreShaftBlock 记在 MoreEncasedShaftBlockEntity 里，
+    // 于是封套后转的还是那个材质、扳手拆开还原成那个材质、破坏也掉那个材质。
+    //
+    // 不需要新增任何模型/贴图文件：模型直接复用 Create 的封套轴模型（区别只在 casing 贴图上），
+    // 见下面 encasedShaft() 里 blockstate 与物品模型对 create:block/encased_shaft/* 的引用。
+    public static final BlockEntry<MoreEncasedShaftBlock> ANDESITE_ENCASED_SHAFT =
+            encasedShaft("andesite", "Andesite Encased Shaft", MapColor.PODZOL, AllBlocks.ANDESITE_CASING::get,
+                    AllSpriteShifts.ANDESITE_CASING);
+
+    public static final BlockEntry<MoreEncasedShaftBlock> BRASS_ENCASED_SHAFT =
+            encasedShaft("brass", "Brass Encased Shaft", MapColor.TERRACOTTA_BROWN, AllBlocks.BRASS_CASING::get,
+                    AllSpriteShifts.BRASS_CASING);
+
+    /**
+     * 封套传动杆的注册脚手架。casingId 同时是 Create 那边的模型/贴图目录名
+     * （create:block/encased_shaft/block_&lt;casingId&gt;、item_&lt;casingId&gt;），
+     * 所以新增一种 Casing 只要在 Create 里有对应模型，这里加一行即可。
+     */
+    private static BlockEntry<MoreEncasedShaftBlock> encasedShaft(String casingId, String display, MapColor mapColor,
+            Supplier<Block> casing, CTSpriteShiftEntry casingShift) {
+        return REGISTRATE
+                .block(casingId + "_encased_shaft", p -> new MoreEncasedShaftBlock(p, casing))
+                // 物性与原版封套轴一致：石头硬度/音效，无应力消耗（轴类本来就不吃应力）
+                .initialProperties(SharedProperties::stone)
+                .properties(p -> p.mapColor(mapColor).noOcclusion())
+                .transform(TagGen.axeOrPickaxe())
+                // blockstate 直接指向 Create 的封套轴模型（生成结果与 create:andesite_encased_shaft 一模一样）。
+                // 因为是别的命名空间的文件，datagen 的 ExistingFileHelper 查不到，必须用 UncheckedModelFile
+                // 跳过存在性校验——Create 是硬依赖，模型一定在。
+                .blockstate((c, p) -> BlockStateGen.axisBlock(c, p,
+                        $ -> new ModelFile.UncheckedModelFile(createModel("block/encased_shaft/block_" + casingId)),
+                        true))
+                // 外壳贴图与 Casing 方块之间做 CT 连接（和原版封套轴一样，贴在一起会连成一片）
+                .onRegister(CreateRegistrate.connectedTextures(() -> new EncasedCTBehaviour(casingShift)))
+                .onRegister(CreateRegistrate.casingConnectivity((block, cc) -> cc.make(block, casingShift,
+                        (s, f) -> f.getAxis() != s.getValue(MoreEncasedShaftBlock.AXIS))))
+                // 关键一步：登记「本模组所有材质轴 -> 这个封套方块」的封套变体，
+                // 不做这一步右键 Casing 会静默失败（EncasingRegistry 查不到变体）。
+                // 必须等方块注册全部结束才能登记，故用 onRegisterAfter。
+                .onRegisterAfter(Registries.BLOCK, ModBlocks::addEncasingVariants)
+                .lang(display)
+                .item()
+                // 封套传动杆只能在游戏里用机壳包出来，不进创造物品栏。
+                // Registrate 会把 .item() 的物品默认塞进本模组那栏（见 More_transmission 静态块），
+                // 所以这里显式把这一栏的注册摘掉。BlockItem 本身要留着：放置、蓝图打印、/give 还得靠它。
+                .removeTab(More_transmission.CREATIVE_TAB)
+                // 物品模型同样借用 Create 的 item_<casing>（那版特意把轴芯画出来，比直接拿方块模型当图标好看）
+                .model((c, p) -> p.getBuilder(c.getName())
+                        .parent(new ModelFile.UncheckedModelFile(createModel("block/encased_shaft/item_" + casingId))))
+                .build()
+                .register();
+    }
+
+    /**
+     * 把刚注册好的封套轴登记成「本模组所有材质轴」的封套变体（可同时被多种 Casing 封套）。
+     *
+     * 这里遍历方块注册表按类型筛选，而不是手写 158 个常量：以后新增材质轴只要 extends MoreShaftBlock
+     * 就会自动支持封套，不会出现「新加的轴又不能包 Casing」这种漏登记。
+     */
+    private static void addEncasingVariants(Block encased) {
+        if (!(encased instanceof MoreEncasedShaftBlock encasedShaft))
+            return;
+        for (Block block : BuiltInRegistries.BLOCK) {
+            if (!More_transmission.MODID.equals(BuiltInRegistries.BLOCK.getKey(block)
+                    .getNamespace()))
+                continue;
+            if (block instanceof MoreShaftBlock shaft)
+                EncasingRegistry.addVariant(shaft, encasedShaft);
+        }
+    }
+
+    /** 指向 Create 命名空间下的模型文件（封套轴的模型/贴图全部复用 Create 的，本模组不新增）。 */
+    private static ResourceLocation createModel(String path) {
+        return ResourceLocation.fromNamespaceAndPath("create", path);
+    }
 
     public static void register() {
     }

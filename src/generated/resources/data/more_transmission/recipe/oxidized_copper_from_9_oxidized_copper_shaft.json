@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "more_transmission:oxidized_copper_shaft"
+    },
+    {
+      "item": "more_transmission:oxidized_copper_shaft"
+    },
+    {
+      "item": "more_transmission:oxidized_copper_shaft"
+    },
+    {
+      "item": "more_transmission:oxidized_copper_shaft"
+    },
+    {
+      "item": "more_transmission:oxidized_copper_shaft"
+    },
+    {
+      "item": "more_transmission:oxidized_copper_shaft"
+    },
+    {
+      "item": "more_transmission:oxidized_copper_shaft"
+    },
+    {
+      "item": "more_transmission:oxidized_copper_shaft"
+    },
+    {
+      "item": "more_transmission:oxidized_copper_shaft"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:oxidized_copper"
+  }
+}

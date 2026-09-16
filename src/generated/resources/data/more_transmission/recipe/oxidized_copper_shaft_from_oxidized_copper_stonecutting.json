@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "minecraft:oxidized_copper"
+  },
+  "result": {
+    "count": 8,
+    "id": "more_transmission:oxidized_copper_shaft"
+  }
+}

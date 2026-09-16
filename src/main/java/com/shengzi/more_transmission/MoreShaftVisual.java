@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.simibubi.create.AllPartialModels;
 import com.simibubi.create.content.kinetics.base.SingleAxisRotatingVisual;
 import com.simibubi.create.content.kinetics.simpleRelays.BracketedKineticBlockEntity;
 import dev.engine_room.flywheel.api.model.Model;
@@ -29,7 +30,7 @@ import net.neoforged.neoforge.client.model.data.ModelData;
  */
 public class MoreShaftVisual extends SingleAxisRotatingVisual<BracketedKineticBlockEntity> {
 
-	/** 方块 -> 它该旋转的轴杆 partial。144 种轴各一行，新增/修改某材质时在这里对号入座即可。 */
+	/** 方块 -> 它该旋转的轴杆 partial。158 种轴各一行，新增/修改某材质时在这里对号入座即可。 */
 	private static final Map<Block, Model> PARTIALS;
 
 	static {
@@ -121,6 +122,21 @@ public class MoreShaftVisual extends SingleAxisRotatingVisual<BracketedKineticBl
 		map.put(ModBlocks.AMETHYST_BLOCK_SHAFT.get(), Models.partial(MorePartialModels.AMETHYST_BLOCK_SHAFT));
 		map.put(ModBlocks.COPPER_BLOCK_SHAFT.get(), Models.partial(MorePartialModels.COPPER_BLOCK_SHAFT));
 		map.put(ModBlocks.CUT_COPPER_SHAFT.get(), Models.partial(MorePartialModels.CUT_COPPER_SHAFT));
+		// 铜的氧化 / 涂蜡变种（14 根，顺序与 ModBlocks / Config.IDS 一致）
+		map.put(ModBlocks.EXPOSED_COPPER_SHAFT.get(), Models.partial(MorePartialModels.EXPOSED_COPPER_SHAFT));
+		map.put(ModBlocks.WEATHERED_COPPER_SHAFT.get(), Models.partial(MorePartialModels.WEATHERED_COPPER_SHAFT));
+		map.put(ModBlocks.OXIDIZED_COPPER_SHAFT.get(), Models.partial(MorePartialModels.OXIDIZED_COPPER_SHAFT));
+		map.put(ModBlocks.EXPOSED_CUT_COPPER_SHAFT.get(), Models.partial(MorePartialModels.EXPOSED_CUT_COPPER_SHAFT));
+		map.put(ModBlocks.WEATHERED_CUT_COPPER_SHAFT.get(), Models.partial(MorePartialModels.WEATHERED_CUT_COPPER_SHAFT));
+		map.put(ModBlocks.OXIDIZED_CUT_COPPER_SHAFT.get(), Models.partial(MorePartialModels.OXIDIZED_CUT_COPPER_SHAFT));
+		map.put(ModBlocks.WAXED_COPPER_BLOCK_SHAFT.get(), Models.partial(MorePartialModels.WAXED_COPPER_BLOCK_SHAFT));
+		map.put(ModBlocks.WAXED_EXPOSED_COPPER_SHAFT.get(), Models.partial(MorePartialModels.WAXED_EXPOSED_COPPER_SHAFT));
+		map.put(ModBlocks.WAXED_WEATHERED_COPPER_SHAFT.get(), Models.partial(MorePartialModels.WAXED_WEATHERED_COPPER_SHAFT));
+		map.put(ModBlocks.WAXED_OXIDIZED_COPPER_SHAFT.get(), Models.partial(MorePartialModels.WAXED_OXIDIZED_COPPER_SHAFT));
+		map.put(ModBlocks.WAXED_CUT_COPPER_SHAFT.get(), Models.partial(MorePartialModels.WAXED_CUT_COPPER_SHAFT));
+		map.put(ModBlocks.WAXED_EXPOSED_CUT_COPPER_SHAFT.get(), Models.partial(MorePartialModels.WAXED_EXPOSED_CUT_COPPER_SHAFT));
+		map.put(ModBlocks.WAXED_WEATHERED_CUT_COPPER_SHAFT.get(), Models.partial(MorePartialModels.WAXED_WEATHERED_CUT_COPPER_SHAFT));
+		map.put(ModBlocks.WAXED_OXIDIZED_CUT_COPPER_SHAFT.get(), Models.partial(MorePartialModels.WAXED_OXIDIZED_CUT_COPPER_SHAFT));
 		map.put(ModBlocks.WHITE_WOOL_SHAFT.get(), Models.partial(MorePartialModels.WHITE_WOOL_SHAFT));
 		map.put(ModBlocks.LIGHT_GRAY_WOOL_SHAFT.get(), Models.partial(MorePartialModels.LIGHT_GRAY_WOOL_SHAFT));
 		map.put(ModBlocks.GRAY_WOOL_SHAFT.get(), Models.partial(MorePartialModels.GRAY_WOOL_SHAFT));
@@ -216,6 +232,18 @@ public class MoreShaftVisual extends SingleAxisRotatingVisual<BracketedKineticBl
 			throw new IllegalArgumentException("未知的材质轴方块: " + block +
 				"（请在 MoreShaftVisual.PARTIALS 里给它补一行）");
 		return new MoreShaftVisual(context, blockEntity, partialTick, model);
+	}
+
+	/**
+	 * 按方块取它该旋转的模型，给拿不到 PARTIALS 的调用方用——目前是封套轴
+	 * （{@link MoreEncasedShaftVisual}）：它里面包的是哪种材质，就转哪种材质的杆。
+	 *
+	 * 认不出来的方块（原版轴、或存档里的未知材质）回落到原版轴的 partial，
+	 * 不会像 {@link #create} 那样抛异常——封套轴的 BE 数据来自存档，不该因此崩客户端。
+	 */
+	public static Model modelFor(Block block) {
+		Model model = PARTIALS.get(block);
+		return model != null ? model : Models.partial(AllPartialModels.SHAFT);
 	}
 
 }

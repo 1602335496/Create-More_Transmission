@@ -10,17 +10,23 @@ import com.simibubi.create.foundation.item.TooltipModifier;
 import net.createmod.catnip.lang.FontHelper;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.ModList;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.neoforge.client.gui.ConfigurationScreen;
+import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
@@ -37,11 +43,22 @@ public class More_transmission {
 
     public static  final CreateRegistrate REGISTRATE = CreateRegistrate.create(MODID);
 
+    /** 本模组创造物品栏的名字——key 是 {@code more_transmission:main}，标题走 {@code itemGroup.more_transmission}。 */
+    public static final String CREATIVE_TAB_NAME = "main";
+
+    /**
+     * 上面那个创造物品栏的 key，给 {@code ItemBuilder#removeTab} 用：
+     * 少数方块（如封套传动杆）只该在游戏里靠机壳包出来，不该出现在创造物品栏里。
+     * Registrate 默认会把它塞进本模组的栏，所以那些方块要显式 removeTab 掉。
+     */
+    public static final ResourceKey<CreativeModeTab> CREATIVE_TAB = ResourceKey.create(Registries.CREATIVE_MODE_TAB,
+            ResourceLocation.fromNamespaceAndPath(MODID, CREATIVE_TAB_NAME));
+
     static {
         // 注册本模组自带的创造物品栏并把 Registrate 默认物品栏指向它：
         // 之后凡是通过 REGISTRATE .item() 注册的物品，不额外写 .tab(...) 就只会进这个 tab，
         // 不会自动落到任何原版 tab。
-        REGISTRATE.defaultCreativeTab("main", tab -> tab
+        REGISTRATE.defaultCreativeTab(CREATIVE_TAB_NAME, tab -> tab
                 .title(Component.translatable("itemGroup." + MODID))
                 .icon(ModBlocks.DIRT_SHAFT::asStack))
                 .register();
@@ -88,6 +105,10 @@ public class More_transmission {
                 event.attach(new OverspeedCrumbleBehaviour(be)));
             event.forType(AllBlockEntityTypes.BRACKETED_KINETIC.get(), be ->
                 event.attach(new OverspeedCrumbleBehaviour(be)));
+            // 封套轴也要参与超速碎裂（行为内部会按「里面包的那根轴」查配置，
+            // 否则给轴套个 Casing 就成了免疫超速的漏洞）。
+            event.forType(ModBlockEntities.ENCASED_SHAFT.get(), be ->
+                event.attach(new OverspeedCrumbleBehaviour(be)));
         });
 
         // 在任意物品提示框上追加「Max Speed」——这样 create:shaft 等非本模组注册的轴也能显示。
@@ -97,8 +118,12 @@ public class More_transmission {
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
 
-        // Register our mod's ModConfigSpec so that FML can create and load the config file for us
-        modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
+        // 注册配置。这里刻意用 SERVER 而不是 COMMON：
+        // SERVER 配置会由服务端同步给客户端（见 NeoForge 的 ConfigSync，它只同步 SERVER 类型），
+        // 这样客户端 tooltip 上显示的才是服务端真正在用的值；用 COMMON 的话两边各读各的本地文件，
+        // 多人游戏里客户端可能显示着"没限速"而服务端其实还在碎轴。
+        // 代价是 SERVER 配置要等服务器起来才加载，所以标题界面的配置按钮会显示为不可编辑。
+        modContainer.registerConfig(ModConfig.Type.SERVER, Config.SPEC);
     }
 
     public static ResourceLocation modLoc(String path){
@@ -133,6 +158,15 @@ public class More_transmission {
             // 玻璃类传动轴的物品（手持/背包图标）也要按透明渲染层画。
             // （世界内那根转动的杆已由 MoreShaftVisual 的 translucent() 处理透明。）
             registerGlassItemRenderLayers();
+
+            // 挂上 NeoForge 自带的配置界面：Mods 列表 → More Transmission → Config。
+            // 玩家因此在游戏里就能直接开关「最大转速」，不用去翻配置文件。
+            // 必须在这个客户端方法里注册——ConfigurationScreen 是纯客户端类，服务端加载会炸。
+            // 注册只是往 ModContainer 的 extensionPoints map 里放一项，Mods 列表打开时才去取，所以此刻注册来得及。
+            ModList.get()
+                .getModContainerById(MODID)
+                .ifPresent(container -> container.registerExtensionPoint(IConfigScreenFactory.class,
+                    ConfigurationScreen::new));
         }
 
         /** 给 18 种玻璃轴注册 translucent 物品/方块渲染层。 */
