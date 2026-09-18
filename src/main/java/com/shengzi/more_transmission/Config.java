@@ -34,17 +34,21 @@ public class Config {
 		"emerald_block_shaft", "lapis_block_shaft", "diamond_block_shaft", "netherite_block_shaft", "quartz_block_shaft", "quartz_pillar_shaft",
 		"amethyst_block_shaft", "copper_block_shaft", "cut_copper_shaft", "exposed_copper_shaft", "weathered_copper_shaft", "oxidized_copper_shaft",
 		"exposed_cut_copper_shaft", "weathered_cut_copper_shaft", "oxidized_cut_copper_shaft", "waxed_copper_block_shaft", "waxed_exposed_copper_shaft", "waxed_weathered_copper_shaft",
-		"waxed_oxidized_copper_shaft", "waxed_cut_copper_shaft", "waxed_exposed_cut_copper_shaft", "waxed_weathered_cut_copper_shaft", "waxed_oxidized_cut_copper_shaft", "white_wool_shaft",
-		"light_gray_wool_shaft", "gray_wool_shaft", "black_wool_shaft", "brown_wool_shaft", "red_wool_shaft", "orange_wool_shaft",
-		"yellow_wool_shaft", "lime_wool_shaft", "green_wool_shaft", "cyan_wool_shaft", "light_blue_wool_shaft", "blue_wool_shaft",
-		"purple_wool_shaft", "magenta_wool_shaft", "pink_wool_shaft", "glass_shaft", "tinted_glass_shaft", "white_stained_glass_shaft",
-		"light_gray_stained_glass_shaft", "gray_stained_glass_shaft", "black_stained_glass_shaft", "brown_stained_glass_shaft", "red_stained_glass_shaft", "orange_stained_glass_shaft",
-		"yellow_stained_glass_shaft", "lime_stained_glass_shaft", "green_stained_glass_shaft", "cyan_stained_glass_shaft", "light_blue_stained_glass_shaft", "blue_stained_glass_shaft",
-		"purple_stained_glass_shaft", "magenta_stained_glass_shaft", "pink_stained_glass_shaft", "clay_shaft", "gravel_shaft", "ice_shaft",
-		"snow_block_shaft", "moss_block_shaft", "calcite_shaft", "magma_block_shaft", "obsidian_shaft", "soul_sand_shaft",
-		"sand_shaft", "red_sand_shaft", "dripstone_block_shaft", "bone_block_shaft", "glowstone_shaft", "sponge_shaft",
-		"hay_block_shaft", "honeycomb_block_shaft", "slime_block_shaft", "honey_block_shaft", "sculk_shaft", "bedrock_shaft",
-		"tnt_shaft", "dirt_shaft", "shaft"
+		"waxed_oxidized_copper_shaft", "waxed_cut_copper_shaft", "waxed_exposed_cut_copper_shaft", "waxed_weathered_cut_copper_shaft", "waxed_oxidized_cut_copper_shaft", "chiseled_copper_shaft",
+		"exposed_chiseled_copper_shaft", "weathered_chiseled_copper_shaft", "oxidized_chiseled_copper_shaft", "waxed_chiseled_copper_shaft", "waxed_exposed_chiseled_copper_shaft", "waxed_weathered_chiseled_copper_shaft",
+		"waxed_oxidized_chiseled_copper_shaft", "copper_grate_shaft", "exposed_copper_grate_shaft", "weathered_copper_grate_shaft", "oxidized_copper_grate_shaft", "waxed_copper_grate_shaft",
+		"waxed_exposed_copper_grate_shaft", "waxed_weathered_copper_grate_shaft", "waxed_oxidized_copper_grate_shaft", "white_wool_shaft", "light_gray_wool_shaft", "gray_wool_shaft",
+		"black_wool_shaft", "brown_wool_shaft", "red_wool_shaft", "orange_wool_shaft", "yellow_wool_shaft", "lime_wool_shaft",
+		"green_wool_shaft", "cyan_wool_shaft", "light_blue_wool_shaft", "blue_wool_shaft", "purple_wool_shaft", "magenta_wool_shaft",
+		"pink_wool_shaft", "glass_shaft", "tinted_glass_shaft", "white_stained_glass_shaft", "light_gray_stained_glass_shaft", "gray_stained_glass_shaft",
+		"black_stained_glass_shaft", "brown_stained_glass_shaft", "red_stained_glass_shaft", "orange_stained_glass_shaft", "yellow_stained_glass_shaft", "lime_stained_glass_shaft",
+		"green_stained_glass_shaft", "cyan_stained_glass_shaft", "light_blue_stained_glass_shaft", "blue_stained_glass_shaft", "purple_stained_glass_shaft", "magenta_stained_glass_shaft",
+		"pink_stained_glass_shaft", "clay_shaft", "gravel_shaft", "ice_shaft", "snow_block_shaft", "moss_block_shaft",
+		"calcite_shaft", "magma_block_shaft", "obsidian_shaft", "soul_sand_shaft", "sand_shaft", "red_sand_shaft",
+		"dripstone_block_shaft", "bone_block_shaft", "glowstone_shaft", "redstone_lamp_shaft", "copper_bulb_shaft", "exposed_copper_bulb_shaft",
+		"weathered_copper_bulb_shaft", "oxidized_copper_bulb_shaft", "waxed_copper_bulb_shaft", "waxed_exposed_copper_bulb_shaft", "waxed_weathered_copper_bulb_shaft", "waxed_oxidized_copper_bulb_shaft",
+		"sponge_shaft", "hay_block_shaft", "honeycomb_block_shaft", "slime_block_shaft", "honey_block_shaft", "sculk_shaft",
+		"bedrock_shaft", "tnt_shaft", "dirt_shaft", "shaft"
 	};
 
 	private static final int[] DEFAULTS = {
@@ -56,12 +60,14 @@ public class Config {
 		64, 64, 48, 112, 112, 128, 128, 128, 128, 128, 128, 64,
 		64, 128, 160, 192, 192, 192, 192, 192, 224, 256, 192, 192,
 		192, 160, 160, 160, 160, 160, 160, 160, 160, 160, 160, 160,
-		160, 160, 160, 160, 160, 16, 16, 16, 16, 16, 16, 16,
+		160, 160, 160, 160, 160, 160, 160, 160, 160, 160, 160, 160,
+		160, 160, 160, 160, 160, 160, 160, 160, 160, 16, 16, 16,
 		16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
 		16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
-		16, 16, 16, 16, 16, 16, 16, 16, 64, 160, 256, 16,
-		16, 16, 128, 64, 48, 16, 16, 16, 16, 16, 16, 256,
-		16, 16, 128
+		16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16, 16,
+		64, 160, 256, 16, 16, 16, 128, 64, 48, 48, 160, 160,
+		160, 160, 160, 160, 160, 160, 16, 16, 16, 16, 16, 16,
+		256, 16, 16, 128
 	};
 
 	/**

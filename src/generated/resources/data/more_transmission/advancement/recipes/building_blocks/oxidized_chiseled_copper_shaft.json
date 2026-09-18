@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_oxidized_chiseled_copper_shaft": {
+      "conditions": {
+        "items": [
+          {
+            "items": "minecraft:oxidized_chiseled_copper"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "more_transmission:oxidized_chiseled_copper_shaft"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_oxidized_chiseled_copper_shaft"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "more_transmission:oxidized_chiseled_copper_shaft"
+    ]
+  }
+}

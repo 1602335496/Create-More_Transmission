@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "minecraft:waxed_copper_bulb"
+  },
+  "result": {
+    "count": 8,
+    "id": "more_transmission:waxed_copper_bulb_shaft"
+  }
+}

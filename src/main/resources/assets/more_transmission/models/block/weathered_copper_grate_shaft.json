@@ -1,0 +1,24 @@
+{
+  "__comment": "Vanilla copper grate texture. uv windows hand-picked for a 4px-wide rod: the four side faces sample 1..6 x 0..16, which makes every row mirror-symmetric left/right (####, #..#, .## only, no fully-hollow row); both end caps sample 0..3 x 3..6, a complete framed grate cell.",
+  "parent": "block/block",
+  "textures": {
+    "particle": "minecraft:block/weathered_copper_grate",
+    "0": "minecraft:block/weathered_copper_grate",
+    "1": "minecraft:block/weathered_copper_grate"
+  },
+  "elements": [
+    {
+      "name": "Axis",
+      "from": [ 6.0, 0.0, 6.0 ],
+      "to": [ 10.0, 16.0, 10.0 ],
+      "faces": {
+        "north": { "texture": "#0", "uv": [ 1.0, 0.0, 6.0, 16.0 ] },
+        "east": { "texture": "#0", "uv": [ 1.0, 0.0, 6.0, 16.0 ] },
+        "south": { "texture": "#0", "uv": [ 1.0, 0.0, 6.0, 16.0 ] },
+        "west": { "texture": "#0", "uv": [ 1.0, 0.0, 6.0, 16.0 ] },
+        "up": { "texture": "#1", "uv": [ 0.0, 3.0, 3.0, 6.0 ] },
+        "down": { "texture": "#1", "uv": [ 0.0, 3.0, 3.0, 6.0 ] }
+      }
+    }
+  ]
+}

@@ -4,8 +4,12 @@
   "package": "com.shengzi.more_transmission.mixin",
   "compatibilityLevel": "JAVA_21",
   "mixins": [
+    "ShaftBlockMixin",
+    "BeltConnectorItemMixin",
+    "BeltBlockMixin"
   ],
   "client": [
+    "BeltVisualMixin"
   ],
   "injectors": {
     "defaultRequire": 1

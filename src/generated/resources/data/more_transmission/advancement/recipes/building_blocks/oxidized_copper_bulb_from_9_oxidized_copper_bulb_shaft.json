@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_oxidized_copper_bulb_shaft": {
+      "conditions": {
+        "items": [
+          {
+            "items": "more_transmission:oxidized_copper_bulb_shaft"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "more_transmission:oxidized_copper_bulb_from_9_oxidized_copper_bulb_shaft"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_oxidized_copper_bulb_shaft"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "more_transmission:oxidized_copper_bulb_from_9_oxidized_copper_bulb_shaft"
+    ]
+  }
+}

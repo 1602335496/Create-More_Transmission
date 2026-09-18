@@ -1,0 +1,30 @@
+{
+  "variants": {
+    "axis=x,lit=false": {
+      "model": "more_transmission:block/oxidized_copper_bulb_shaft",
+      "x": 90,
+      "y": 90
+    },
+    "axis=x,lit=true": {
+      "model": "more_transmission:block/oxidized_copper_bulb_shaft_lit",
+      "x": 90,
+      "y": 90
+    },
+    "axis=y,lit=false": {
+      "model": "more_transmission:block/oxidized_copper_bulb_shaft"
+    },
+    "axis=y,lit=true": {
+      "model": "more_transmission:block/oxidized_copper_bulb_shaft_lit"
+    },
+    "axis=z,lit=false": {
+      "model": "more_transmission:block/oxidized_copper_bulb_shaft",
+      "x": 90,
+      "y": 180
+    },
+    "axis=z,lit=true": {
+      "model": "more_transmission:block/oxidized_copper_bulb_shaft_lit",
+      "x": 90,
+      "y": 180
+    }
+  }
+}

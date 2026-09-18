@@ -1,0 +1,37 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    {
+      "item": "more_transmission:waxed_oxidized_copper_grate_shaft"
+    },
+    {
+      "item": "more_transmission:waxed_oxidized_copper_grate_shaft"
+    },
+    {
+      "item": "more_transmission:waxed_oxidized_copper_grate_shaft"
+    },
+    {
+      "item": "more_transmission:waxed_oxidized_copper_grate_shaft"
+    },
+    {
+      "item": "more_transmission:waxed_oxidized_copper_grate_shaft"
+    },
+    {
+      "item": "more_transmission:waxed_oxidized_copper_grate_shaft"
+    },
+    {
+      "item": "more_transmission:waxed_oxidized_copper_grate_shaft"
+    },
+    {
+      "item": "more_transmission:waxed_oxidized_copper_grate_shaft"
+    },
+    {
+      "item": "more_transmission:waxed_oxidized_copper_grate_shaft"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "minecraft:waxed_oxidized_copper_grate"
+  }
+}

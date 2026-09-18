@@ -1,0 +1,10 @@
+{
+  "type": "minecraft:stonecutting",
+  "ingredient": {
+    "item": "minecraft:waxed_oxidized_chiseled_copper"
+  },
+  "result": {
+    "count": 8,
+    "id": "more_transmission:waxed_oxidized_chiseled_copper_shaft"
+  }
+}

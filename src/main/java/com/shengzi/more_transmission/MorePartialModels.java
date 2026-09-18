@@ -214,6 +214,39 @@ public class MorePartialModels {
 
     public static final PartialModel WAXED_OXIDIZED_CUT_COPPER_SHAFT = PartialModel.of(More_transmission.modLoc("block/waxed_oxidized_cut_copper_shaft"));
 
+    // 雕纹铜块 / 铜格栅各 8 种（顺序与 ModBlocks 一致）。涂蜡版没有自己的贴图，模型里引用未涂蜡那张。
+    public static final PartialModel CHISELED_COPPER_SHAFT = PartialModel.of(More_transmission.modLoc("block/chiseled_copper_shaft"));
+
+    public static final PartialModel EXPOSED_CHISELED_COPPER_SHAFT = PartialModel.of(More_transmission.modLoc("block/exposed_chiseled_copper_shaft"));
+
+    public static final PartialModel WEATHERED_CHISELED_COPPER_SHAFT = PartialModel.of(More_transmission.modLoc("block/weathered_chiseled_copper_shaft"));
+
+    public static final PartialModel OXIDIZED_CHISELED_COPPER_SHAFT = PartialModel.of(More_transmission.modLoc("block/oxidized_chiseled_copper_shaft"));
+
+    public static final PartialModel WAXED_CHISELED_COPPER_SHAFT = PartialModel.of(More_transmission.modLoc("block/waxed_chiseled_copper_shaft"));
+
+    public static final PartialModel WAXED_EXPOSED_CHISELED_COPPER_SHAFT = PartialModel.of(More_transmission.modLoc("block/waxed_exposed_chiseled_copper_shaft"));
+
+    public static final PartialModel WAXED_WEATHERED_CHISELED_COPPER_SHAFT = PartialModel.of(More_transmission.modLoc("block/waxed_weathered_chiseled_copper_shaft"));
+
+    public static final PartialModel WAXED_OXIDIZED_CHISELED_COPPER_SHAFT = PartialModel.of(More_transmission.modLoc("block/waxed_oxidized_chiseled_copper_shaft"));
+
+    public static final PartialModel COPPER_GRATE_SHAFT = PartialModel.of(More_transmission.modLoc("block/copper_grate_shaft"));
+
+    public static final PartialModel EXPOSED_COPPER_GRATE_SHAFT = PartialModel.of(More_transmission.modLoc("block/exposed_copper_grate_shaft"));
+
+    public static final PartialModel WEATHERED_COPPER_GRATE_SHAFT = PartialModel.of(More_transmission.modLoc("block/weathered_copper_grate_shaft"));
+
+    public static final PartialModel OXIDIZED_COPPER_GRATE_SHAFT = PartialModel.of(More_transmission.modLoc("block/oxidized_copper_grate_shaft"));
+
+    public static final PartialModel WAXED_COPPER_GRATE_SHAFT = PartialModel.of(More_transmission.modLoc("block/waxed_copper_grate_shaft"));
+
+    public static final PartialModel WAXED_EXPOSED_COPPER_GRATE_SHAFT = PartialModel.of(More_transmission.modLoc("block/waxed_exposed_copper_grate_shaft"));
+
+    public static final PartialModel WAXED_WEATHERED_COPPER_GRATE_SHAFT = PartialModel.of(More_transmission.modLoc("block/waxed_weathered_copper_grate_shaft"));
+
+    public static final PartialModel WAXED_OXIDIZED_COPPER_GRATE_SHAFT = PartialModel.of(More_transmission.modLoc("block/waxed_oxidized_copper_grate_shaft"));
+
     public static final PartialModel WHITE_WOOL_SHAFT = PartialModel.of(More_transmission.modLoc("block/white_wool_shaft"));
 
     public static final PartialModel LIGHT_GRAY_WOOL_SHAFT = PartialModel.of(More_transmission.modLoc("block/light_gray_wool_shaft"));
@@ -325,6 +358,60 @@ public class MorePartialModels {
     public static final PartialModel BEDROCK_SHAFT = PartialModel.of(More_transmission.modLoc("block/bedrock_shaft"));
 
     public static final PartialModel TNT_SHAFT = PartialModel.of(More_transmission.modLoc("block/tnt_shaft"));
+
+    /**
+     * 红石灯传动杆的两份模型：熄灭 / 点亮。它是唯一贴图随方块状态变的轴，
+     * 所以在 {@link MoreShaftVisual} 里由状态决定用哪一个，这里两个都要有。
+     */
+    public static final PartialModel REDSTONE_LAMP_SHAFT = PartialModel.of(More_transmission.modLoc("block/redstone_lamp_shaft"));
+
+    public static final PartialModel REDSTONE_LAMP_SHAFT_LIT = PartialModel.of(More_transmission.modLoc("block/redstone_lamp_shaft_lit"));
+
+    // 铜灯轴的熄灭 / 点亮两份模型（8 根，顺序与 ModBlocks 一致）。
+    // 涂蜡版没有自己的贴图，模型里引用的是未涂蜡那张（见各自的 models/block/*.json）。
+    public static final PartialModel COPPER_BULB_SHAFT = PartialModel.of(More_transmission.modLoc("block/copper_bulb_shaft"));
+
+    public static final PartialModel COPPER_BULB_SHAFT_LIT = PartialModel.of(More_transmission.modLoc("block/copper_bulb_shaft_lit"));
+
+    public static final PartialModel EXPOSED_COPPER_BULB_SHAFT = PartialModel.of(More_transmission.modLoc("block/exposed_copper_bulb_shaft"));
+
+    public static final PartialModel EXPOSED_COPPER_BULB_SHAFT_LIT = PartialModel.of(More_transmission.modLoc("block/exposed_copper_bulb_shaft_lit"));
+
+    public static final PartialModel WEATHERED_COPPER_BULB_SHAFT = PartialModel.of(More_transmission.modLoc("block/weathered_copper_bulb_shaft"));
+
+    public static final PartialModel WEATHERED_COPPER_BULB_SHAFT_LIT = PartialModel.of(More_transmission.modLoc("block/weathered_copper_bulb_shaft_lit"));
+
+    public static final PartialModel OXIDIZED_COPPER_BULB_SHAFT = PartialModel.of(More_transmission.modLoc("block/oxidized_copper_bulb_shaft"));
+
+    public static final PartialModel OXIDIZED_COPPER_BULB_SHAFT_LIT = PartialModel.of(More_transmission.modLoc("block/oxidized_copper_bulb_shaft_lit"));
+
+    public static final PartialModel WAXED_COPPER_BULB_SHAFT = PartialModel.of(More_transmission.modLoc("block/waxed_copper_bulb_shaft"));
+
+    public static final PartialModel WAXED_COPPER_BULB_SHAFT_LIT = PartialModel.of(More_transmission.modLoc("block/waxed_copper_bulb_shaft_lit"));
+
+    public static final PartialModel WAXED_EXPOSED_COPPER_BULB_SHAFT = PartialModel.of(More_transmission.modLoc("block/waxed_exposed_copper_bulb_shaft"));
+
+    public static final PartialModel WAXED_EXPOSED_COPPER_BULB_SHAFT_LIT = PartialModel.of(More_transmission.modLoc("block/waxed_exposed_copper_bulb_shaft_lit"));
+
+    public static final PartialModel WAXED_WEATHERED_COPPER_BULB_SHAFT = PartialModel.of(More_transmission.modLoc("block/waxed_weathered_copper_bulb_shaft"));
+
+    public static final PartialModel WAXED_WEATHERED_COPPER_BULB_SHAFT_LIT = PartialModel.of(More_transmission.modLoc("block/waxed_weathered_copper_bulb_shaft_lit"));
+
+    public static final PartialModel WAXED_OXIDIZED_COPPER_BULB_SHAFT = PartialModel.of(More_transmission.modLoc("block/waxed_oxidized_copper_bulb_shaft"));
+
+    public static final PartialModel WAXED_OXIDIZED_COPPER_BULB_SHAFT_LIT = PartialModel.of(More_transmission.modLoc("block/waxed_oxidized_copper_bulb_shaft_lit"));
+
+    /**
+     * 传送带滑轮用的模型：{@code create:block/belt_pulley} **去掉那根 Axis 元素**的副本。
+     *
+     * <p>Create 那个模型自带一根贴原版轴贴图的实心杆（4×4×16，与 {@code create:block/shaft} 逐字段相同）。
+     * 我们叠上去的那根材质轴杆本来是靠等比放大 1.05 把它盖住的——可那样一来，透明材质（铜格栅的镂空、
+     * 玻璃的半透明）打出的洞透过去看到的仍然是它。所以干脆把它抽掉：
+     * {@code More_transmission} 里那个 {@link com.shengzi.more_transmission.mixin.BeltVisualMixin}
+     * 让 Create 改用这份模型，那根杆统一由 {@link MaterialBeltVisual} 自己画——记着材质就画材质轴，
+     * 没记就画原版轴（用的就是被抽掉那个元素的同款 partial），画出来和原来一样。
+     */
+    public static final PartialModel BELT_PULLEY_NO_AXIS = PartialModel.of(More_transmission.modLoc("block/belt_pulley_no_axis"));
 
     /**
      * 空方法，仅用于强制触发本类的静态初始化——客户端 setup 时调用它，

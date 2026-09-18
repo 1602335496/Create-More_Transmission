@@ -2,7 +2,10 @@ package com.shengzi.more_transmission;
 
 //import com.mojang.logging.LogUtils;
 import com.simibubi.create.AllBlockEntityTypes;
+import dev.engine_room.flywheel.api.visualization.VisualizerRegistry;
+import dev.engine_room.flywheel.lib.visualization.SimpleBlockEntityVisualizer;
 import com.simibubi.create.api.event.BlockEntityBehaviourEvent;
+import com.simibubi.create.content.kinetics.belt.BeltBlockEntity;
 import com.simibubi.create.foundation.data.CreateRegistrate;
 import com.simibubi.create.foundation.item.ItemDescription;
 import com.simibubi.create.foundation.item.KineticStats;
@@ -30,6 +33,7 @@ import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
+import net.neoforged.neoforge.event.level.LevelEvent;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 //import org.slf4j.Logger;
 
@@ -74,6 +78,9 @@ public class More_transmission {
         // 红石轴"就像红石块一样"提示（英文；中文在 zh_cn.json）
         REGISTRATE.addRawLang("more_transmission.tooltip.redstone_like", "Behaves like a redstone block");
 
+        // 红石灯轴"转起来点亮并发红石信号"提示（英文；中文在 zh_cn.json）
+        REGISTRATE.addRawLang("more_transmission.tooltip.lamp_redstone", "Glows and emits a redstone signal of 15 while spinning");
+
         REGISTRATE.setTooltipModifierFactory(item -> new ItemDescription.Modifier(item, FontHelper.Palette.STANDARD_CREATE)
                 .andThen(TooltipModifier.mapNull(KineticStats.create(item))));
 
@@ -109,11 +116,33 @@ public class More_transmission {
             // 否则给轴套个 Casing 就成了免疫超速的漏洞）。
             event.forType(ModBlockEntities.ENCASED_SHAFT.get(), be ->
                 event.attach(new OverspeedCrumbleBehaviour(be)));
+
+            // 红石灯传动杆的「转起来就点亮」。这里对所有材质轴都挂上——不能改成按方块类型条件挂：
+            // 在同一位置把普通轴换成红石灯轴时两者 BE 类型相同，vanilla 会复用旧 BE、本事件不会重跑，
+            // 灯就永远不亮。行为内部第一行就按方块类型早退，开销可以忽略。
+            event.forType(ModBlockEntities.BRACKETED_KINETIC.get(), be ->
+                event.attach(new LampShaftBehaviour(be)));
+
+            // 传送带每格记住「当初顶掉的是哪根材质轴」，供拆带/切片时还原（见 BeltShaftBehaviour）。
+            event.forType(AllBlockEntityTypes.BELT.get(), be ->
+                event.attach(new BeltShaftBehaviour(be)));
         });
 
         // 在任意物品提示框上追加「Max Speed」——这样 create:shaft 等非本模组注册的轴也能显示。
         NeoForge.EVENT_BUS.addListener((ItemTooltipEvent event) ->
             new ShaftMaxSpeedTooltip().modify(event));
+
+        // 传送带滑轮的 visual 换成自己的子类：Create 那个模型里那根轴贴的是原版轴贴图，
+        // 这里叠一根材质轴自己的杆把它盖掉（细节见 MaterialBeltVisual）。
+        //
+        // 时机很讲究：**不能**放在 FMLClientSetupEvent 里。Create 注册传送带 visual 用的也是这个事件
+        // （见 CreateBlockEntityBuilder.registerVisualizer），同一事件上两个监听器的先后没有保证，
+        // 而我必须排在他后面覆盖才能生效（之前就栽在这里：注册赢不了，等于没改）。
+        // 改到客户端世界加载时注册，那时 Create 早就注册完了。
+        NeoForge.EVENT_BUS.addListener((LevelEvent.Load event) -> {
+            if (event.getLevel().isClientSide())
+                installBeltVisualizer();
+        });
 
         // Register the item to a creative tab
         modEventBus.addListener(this::addCreative);
@@ -128,6 +157,20 @@ public class More_transmission {
 
     public static ResourceLocation modLoc(String path){
         return ResourceLocation.fromNamespaceAndPath(MODID, path);
+    }
+
+    /**
+     * 把 {@code create:belt} 的 visual 换成 {@link MaterialBeltVisual}。
+     *
+     * <p>「这一格是否仍要走原版 BeltRenderer」的判定**直接转发原来那个 visualizer 的**——
+     * 不去猜 Flywheel 那个 `skipVanillaRender` 谓词的方向，行为就一定和之前完全一致。
+     * 重复调用是安全的（就是再 set 一次）。
+     */
+    private static void installBeltVisualizer() {
+        var original = VisualizerRegistry.getVisualizer(AllBlockEntityTypes.BELT.get());
+        VisualizerRegistry.setVisualizer(AllBlockEntityTypes.BELT.get(),
+            new SimpleBlockEntityVisualizer<BeltBlockEntity>(MaterialBeltVisual::new,
+                original == null ? be -> false : original::skipVanillaRender));
     }
 
     private void commonSetup(final FMLCommonSetupEvent event) {
@@ -167,6 +210,7 @@ public class More_transmission {
                 .getModContainerById(MODID)
                 .ifPresent(container -> container.registerExtensionPoint(IConfigScreenFactory.class,
                     ConfigurationScreen::new));
+
         }
 
         /** 给 18 种玻璃轴注册 translucent 物品/方块渲染层。 */
@@ -194,6 +238,31 @@ public class More_transmission {
             };
             for (Block block : glass)
                 ItemBlockRenderTypes.setRenderLayer(block, RenderType.translucent());
+
+            registerGrateItemRenderLayers();
+        }
+
+        /**
+         * 给 8 种铜格栅轴注册 cutout 物品渲染层。
+         *
+         * <p>格栅贴图是镂空的（像素非全透明即不透明），原版也把这 8 个方块放在 {@code RenderType.cutout()}
+         * （见 {@code ItemBlockRenderTypes}）。不设的话物品图标里镂空处会按实心渲染成黑斑。
+         * 世界内那根转动的杆由 {@code MoreShaftVisual.cutout()} 单独处理。
+         */
+        @SuppressWarnings("deprecation")
+        private static void registerGrateItemRenderLayers() {
+            Block[] grates = {
+                ModBlocks.COPPER_GRATE_SHAFT.get(),
+                ModBlocks.EXPOSED_COPPER_GRATE_SHAFT.get(),
+                ModBlocks.WEATHERED_COPPER_GRATE_SHAFT.get(),
+                ModBlocks.OXIDIZED_COPPER_GRATE_SHAFT.get(),
+                ModBlocks.WAXED_COPPER_GRATE_SHAFT.get(),
+                ModBlocks.WAXED_EXPOSED_COPPER_GRATE_SHAFT.get(),
+                ModBlocks.WAXED_WEATHERED_COPPER_GRATE_SHAFT.get(),
+                ModBlocks.WAXED_OXIDIZED_COPPER_GRATE_SHAFT.get()
+            };
+            for (Block block : grates)
+                ItemBlockRenderTypes.setRenderLayer(block, RenderType.cutout());
         }
     }
 }

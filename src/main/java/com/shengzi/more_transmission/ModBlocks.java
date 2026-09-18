@@ -2,6 +2,7 @@ package com.shengzi.more_transmission;
 
 import java.util.function.Supplier;
 
+import com.shengzi.more_transmission.custom_block.LampShaftBlock;
 import com.shengzi.more_transmission.custom_block.RedstoneShaftBlock;
 import com.shengzi.more_transmission.custom_block.TntShaftBlock;
 import com.simibubi.create.AllBlocks;
@@ -456,6 +457,42 @@ public class ModBlocks {
 
     public static final BlockEntry<MoreShaftBlock> WAXED_OXIDIZED_CUT_COPPER_SHAFT = shaft("waxed_oxidized_cut_copper_shaft", "Waxed Oxidized Cut Copper Shaft");
 
+    // 雕纹铜块与铜格栅各 8 种，接在铜系后面；默认最大转速与铜块传动杆相同（160）。
+    // 雕纹铜块贴图不透明，按普通轴处理即可；铜格栅用原版那张镂空贴图，
+    // 所以 partial 要在 MoreShaftVisual 里用 cutout() 包一层，物品渲染层也要跟着设。
+    // 「每个面在贴图上取哪一块」是为细杆专门挑的，写在各自的 models/block/*_copper_grate_shaft.json 里。
+    public static final BlockEntry<MoreShaftBlock> CHISELED_COPPER_SHAFT = shaft("chiseled_copper_shaft", "Chiseled Copper Shaft");
+
+    public static final BlockEntry<MoreShaftBlock> EXPOSED_CHISELED_COPPER_SHAFT = shaft("exposed_chiseled_copper_shaft", "Exposed Chiseled Copper Shaft");
+
+    public static final BlockEntry<MoreShaftBlock> WEATHERED_CHISELED_COPPER_SHAFT = shaft("weathered_chiseled_copper_shaft", "Weathered Chiseled Copper Shaft");
+
+    public static final BlockEntry<MoreShaftBlock> OXIDIZED_CHISELED_COPPER_SHAFT = shaft("oxidized_chiseled_copper_shaft", "Oxidized Chiseled Copper Shaft");
+
+    public static final BlockEntry<MoreShaftBlock> WAXED_CHISELED_COPPER_SHAFT = shaft("waxed_chiseled_copper_shaft", "Waxed Chiseled Copper Shaft");
+
+    public static final BlockEntry<MoreShaftBlock> WAXED_EXPOSED_CHISELED_COPPER_SHAFT = shaft("waxed_exposed_chiseled_copper_shaft", "Waxed Exposed Chiseled Copper Shaft");
+
+    public static final BlockEntry<MoreShaftBlock> WAXED_WEATHERED_CHISELED_COPPER_SHAFT = shaft("waxed_weathered_chiseled_copper_shaft", "Waxed Weathered Chiseled Copper Shaft");
+
+    public static final BlockEntry<MoreShaftBlock> WAXED_OXIDIZED_CHISELED_COPPER_SHAFT = shaft("waxed_oxidized_chiseled_copper_shaft", "Waxed Oxidized Chiseled Copper Shaft");
+
+    public static final BlockEntry<MoreShaftBlock> COPPER_GRATE_SHAFT = shaft("copper_grate_shaft", "Copper Grate Shaft");
+
+    public static final BlockEntry<MoreShaftBlock> EXPOSED_COPPER_GRATE_SHAFT = shaft("exposed_copper_grate_shaft", "Exposed Copper Grate Shaft");
+
+    public static final BlockEntry<MoreShaftBlock> WEATHERED_COPPER_GRATE_SHAFT = shaft("weathered_copper_grate_shaft", "Weathered Copper Grate Shaft");
+
+    public static final BlockEntry<MoreShaftBlock> OXIDIZED_COPPER_GRATE_SHAFT = shaft("oxidized_copper_grate_shaft", "Oxidized Copper Grate Shaft");
+
+    public static final BlockEntry<MoreShaftBlock> WAXED_COPPER_GRATE_SHAFT = shaft("waxed_copper_grate_shaft", "Waxed Copper Grate Shaft");
+
+    public static final BlockEntry<MoreShaftBlock> WAXED_EXPOSED_COPPER_GRATE_SHAFT = shaft("waxed_exposed_copper_grate_shaft", "Waxed Exposed Copper Grate Shaft");
+
+    public static final BlockEntry<MoreShaftBlock> WAXED_WEATHERED_COPPER_GRATE_SHAFT = shaft("waxed_weathered_copper_grate_shaft", "Waxed Weathered Copper Grate Shaft");
+
+    public static final BlockEntry<MoreShaftBlock> WAXED_OXIDIZED_COPPER_GRATE_SHAFT = shaft("waxed_oxidized_copper_grate_shaft", "Waxed Oxidized Copper Grate Shaft");
+
     public static final BlockEntry<MoreShaftBlock> WHITE_WOOL_SHAFT = shaft("white_wool_shaft", "White Wool Shaft");
 
     public static final BlockEntry<MoreShaftBlock> LIGHT_GRAY_WOOL_SHAFT = shaft("light_gray_wool_shaft", "Light Gray Wool Shaft");
@@ -599,6 +636,74 @@ public class ModBlocks {
 
             .register();
 
+    // ---- 「灯轴」：转动时点亮、并像红石块一样输出红石信号（红石灯轴 + 8 根铜灯轴）----
+
+    /**
+     * 灯轴的注册脚手架。id 去掉 _shaft 就是对应的原版方块（红石灯 / 铜灯系列），
+     * 物性、挖掘标签、掉落、三条配方都由它派生——和 {@link #shaft} 一样，区别只有两点：
+     *
+     * <ul>
+     *   <li>方块类是 {@link LampShaftBlock}：多一个 LIT 状态，转动时点亮并发红石信号；</li>
+     *   <li>blockstate 按 LIT 在两个模型之间切——{@code block/<id>} 与 {@code block/<id>_lit}。</li>
+     * </ul>
+     *
+     * 亮度不用自己算：原版红石灯与铜灯的亮度都写在物性里（铜灯还按氧化程度分 15/12/8/4 四档），
+     * {@code initialProperties} 会把那份 {@code lightLevel} 函数一起复制过来。
+     */
+    private static BlockEntry<LampShaftBlock> litShaft(String id, String display) {
+        Block material = materialOf(id);
+        return REGISTRATE
+                .block(id, LampShaftBlock::new)
+                .initialProperties(() -> material)
+                .properties(p -> p.noOcclusion())
+                .transform(TagGen.pickaxeOnly())
+                // 按 LIT 选模型：lit=false → block/<id>，lit=true → block/<id>_lit。
+                // 用 Create 的 axisBlock 只为拿到那套轴向旋转；模型名交给这个函数决定。
+                .blockstate((c, p) -> BlockStateGen.axisBlock(c, p, state -> p.models()
+                        .getExistingFile(More_transmission.modLoc("block/" + c.getName()
+                                + (state.getValue(LampShaftBlock.LIT) ? "_lit" : ""))), false))
+                // 这个 BakedModel 包装器负责支架渲染，并且在世界内把静态模型的面全部吃掉
+                // （getQuads 返回空），真正在转的那根杆由 Flywheel 画 —— 其它材质轴同理
+                .onRegister(CreateRegistrate.blockModel(() -> BracketedKineticBlockModel::new))
+                .loot((t, block) -> t.dropSelf(block))
+                // 配方：同列两块「该材质方块」→8 根；切石机 1 块→8 根；逆向 9 根→1 块
+                .recipe((c, p) -> {
+                    ShapedRecipeBuilder.shaped(RecipeCategory.BUILDING_BLOCKS, c.get(), 8)
+                            .define('X', material)
+                            .pattern("X")
+                            .pattern("X")
+                            .unlockedBy("has_" + id, RegistrateRecipeProvider.has(material))
+                            .save(p);
+                    p.stonecutting(DataIngredient.items(material), RecipeCategory.BUILDING_BLOCKS, c::get, 8);
+                    ShapelessRecipeBuilder.shapeless(RecipeCategory.BUILDING_BLOCKS, material)
+                            .requires(c.get(), 9)
+                            .unlockedBy("has_" + id, RegistrateRecipeProvider.has(c.get()))
+                            .save(p, More_transmission.modLoc(BuiltInRegistries.BLOCK.getKey(material).getPath() + "_from_9_" + id));
+                })
+                .lang(display)
+                .item()
+                .build()
+                .register();
+    }
+
+    public static final BlockEntry<LampShaftBlock> REDSTONE_LAMP_SHAFT = litShaft("redstone_lamp_shaft", "Redstone Lamp Shaft");
+
+    // 铜灯系列 8 根：亮度随氧化程度递减（15/12/8/4），由各自的物性自带；涂蜡版复用未涂蜡的贴图。
+    public static final BlockEntry<LampShaftBlock> COPPER_BULB_SHAFT = litShaft("copper_bulb_shaft", "Copper Bulb Shaft");
+
+    public static final BlockEntry<LampShaftBlock> EXPOSED_COPPER_BULB_SHAFT = litShaft("exposed_copper_bulb_shaft", "Exposed Copper Bulb Shaft");
+
+    public static final BlockEntry<LampShaftBlock> WEATHERED_COPPER_BULB_SHAFT = litShaft("weathered_copper_bulb_shaft", "Weathered Copper Bulb Shaft");
+
+    public static final BlockEntry<LampShaftBlock> OXIDIZED_COPPER_BULB_SHAFT = litShaft("oxidized_copper_bulb_shaft", "Oxidized Copper Bulb Shaft");
+
+    public static final BlockEntry<LampShaftBlock> WAXED_COPPER_BULB_SHAFT = litShaft("waxed_copper_bulb_shaft", "Waxed Copper Bulb Shaft");
+
+    public static final BlockEntry<LampShaftBlock> WAXED_EXPOSED_COPPER_BULB_SHAFT = litShaft("waxed_exposed_copper_bulb_shaft", "Waxed Exposed Copper Bulb Shaft");
+
+    public static final BlockEntry<LampShaftBlock> WAXED_WEATHERED_COPPER_BULB_SHAFT = litShaft("waxed_weathered_copper_bulb_shaft", "Waxed Weathered Copper Bulb Shaft");
+
+    public static final BlockEntry<LampShaftBlock> WAXED_OXIDIZED_COPPER_BULB_SHAFT = litShaft("waxed_oxidized_copper_bulb_shaft", "Waxed Oxidized Copper Bulb Shaft");
     // ---- 封套传动杆：把上面任意一种材质轴用 Andesite / Brass Casing 包起来 ----
     //
     // 原版 Create 的 create:andesite_encased_shaft 内部固定包着 create:shaft，材质没得选；
@@ -658,7 +763,7 @@ public class ModBlocks {
     /**
      * 把刚注册好的封套轴登记成「本模组所有材质轴」的封套变体（可同时被多种 Casing 封套）。
      *
-     * 这里遍历方块注册表按类型筛选，而不是手写 158 个常量：以后新增材质轴只要 extends MoreShaftBlock
+     * 这里遍历方块注册表按类型筛选，而不是手写 183 个常量：以后新增材质轴只要 extends MoreShaftBlock
      * 就会自动支持封套，不会出现「新加的轴又不能包 Casing」这种漏登记。
      */
     private static void addEncasingVariants(Block encased) {

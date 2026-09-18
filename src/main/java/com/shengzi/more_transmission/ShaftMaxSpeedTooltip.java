@@ -1,5 +1,6 @@
 package com.shengzi.more_transmission;
 
+import com.shengzi.more_transmission.custom_block.LampShaftBlock;
 import com.simibubi.create.foundation.item.TooltipModifier;
 
 import net.minecraft.ChatFormatting;
@@ -46,5 +47,12 @@ public class ShaftMaxSpeedTooltip implements TooltipModifier {
 			context.getToolTip()
 				.add(Component.translatable("more_transmission.tooltip.redstone_like")
 					.withStyle(ChatFormatting.DARK_RED));
+
+		// 灯轴（红石灯 + 8 根铜灯）同理：讲的是"转起来会点亮并发红石信号"，与转速上限无关。
+		// 这里按方块类判断而不是注册名——9 根轴共用 LampShaftBlock，将来再加同类不用回来补名单。
+		if (blockItem.getBlock() instanceof LampShaftBlock)
+			context.getToolTip()
+				.add(Component.translatable("more_transmission.tooltip.lamp_redstone")
+					.withStyle(ChatFormatting.RED));
 	}
 }
